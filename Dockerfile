@@ -11,3 +11,5 @@ COPY . .
 RUN npm run build
 
 CMD [ "node", "dist/bot.js" ]
+
+RUN echo $DISCORD_TOKEN
