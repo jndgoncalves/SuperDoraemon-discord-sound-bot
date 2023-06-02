@@ -1,8 +1,7 @@
-require('dotenv').config(); // Load environment variables from .env file
-const { Client, GatewayIntentBits, Partials } = require('discord.js');
+import dotenv from 'dotenv';
+import { Client, GatewayIntentBits, Partials } from 'discord.js';
 
-const discordToken = process.env.DISCORD_TOKEN;
-console.log(process.env.DISCORD_TOKEN, ' TOKEN');
+dotenv.config();
 
 const client = new Client({
   intents: [
@@ -18,9 +17,4 @@ client.once('ready', () => {
   console.log('Ready!!!');
 });
 
-console.log('É desta que vai!');
-
-client.login(discordToken);
-
-console.log(discordToken, 'oioioi');
-const token = discordToken;
+client.login(process.env.DISCORD_TOKEN);
