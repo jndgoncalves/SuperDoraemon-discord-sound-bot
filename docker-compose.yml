@@ -5,9 +5,10 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/discord-bot
+      - .:/usr/src
     ports:
       - '3000:3000'
-    image: discord-bot
+    image: discord-bot-image
     env_file:
       - docker.env
+    container_name: discord-bot-container
