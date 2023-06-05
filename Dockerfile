@@ -10,6 +10,5 @@ COPY . .
 
 RUN npm install --only=dev
 RUN npm install -g nodemon
-RUN npm run build
 
-CMD [ "nodemon", "--inspect=0.0.0.0", "dist/bot.js" ]
+CMD NODE_OPTIONS="--max-old-space-size=4096" nodemon --inspect=0.0.0.0 dist/bot.js
