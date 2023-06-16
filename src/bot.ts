@@ -1,4 +1,3 @@
-// Import necessary modules
 import dotenv from 'dotenv';
 import { Collection, Events } from 'discord.js';
 import SuperDoraemonClient from './SuperDoraemonClient';
@@ -46,10 +45,10 @@ for (const folder of commandsFolders) {
         // If the command is missing a "data" or "execute" property, log a warning
         console.log(
           `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property`
-        )
+        );
       }
     }
-  }
+  };
 }
 
 // When an interaction is created, try to execute the corresponding command
