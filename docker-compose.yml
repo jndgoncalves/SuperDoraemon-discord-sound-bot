@@ -8,7 +8,9 @@ services:
       - .:/usr/src
     ports:
       - '3000:3000'
+      - '9229:9229'
     image: discord-bot-image
     env_file:
       - docker.env
     container_name: discord-bot-container
+    command: ['npm', 'run', 'debug']

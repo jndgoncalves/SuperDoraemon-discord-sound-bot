@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon -e js,ts src/bot.ts",
     "prestart": "npm run build",
-    "build": "tsc"
+    "build": "tsc",
+    "debug": "node --inspect-brk=0.0.0.0:9229 -r ts-node/register src/bot.ts"
   },
   "keywords": [],
   "author": "Zikmix",
