@@ -8,6 +8,6 @@
     "esModuleInterop": true,
     "sourceMap": true
   },
-  "include": ["src/**.ts/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }

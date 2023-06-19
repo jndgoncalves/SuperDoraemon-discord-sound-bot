@@ -77,6 +77,11 @@ Promise.all(commandPromises).then(() => {
       console.error(error);
     }
 
+
+    // Start dummy server to keep the process running for debugging
+    console.log('Starting dummy server...');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('http').createServer().listen(3000);
   
   })();
 });

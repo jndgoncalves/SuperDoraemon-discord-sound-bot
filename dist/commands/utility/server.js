@@ -9,3 +9,4 @@ module.exports = {
         await interaction.reply(`This server tag: is ${interaction.guild?.name} and has ${interaction.guild?.memberCount} members.`);
     },
 };
+//# sourceMappingURL=server.js.map

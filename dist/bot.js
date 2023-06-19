@@ -50,7 +50,8 @@ for (const folder of commandsFolders) {
         .readdirSync(commandsPath)
         .filter((file) => file.endsWith('.ts'));
     // Loop over each file in the current folder
-    async () => {
+    // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
+    (async () => {
         for (const file of commandFiles) {
             // Define the path to the current file
             const filePath = node_path_1.default.join(commandsPath, file);
@@ -65,10 +66,11 @@ for (const folder of commandsFolders) {
                 console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property`);
             }
         }
-    };
+    })();
+    // ...
 }
 // When an interaction is created, try to execute the corresponding command
-client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
+client.on(discord_js_1.Events.InteractionCreate, (interaction) => {
     if (!interaction.isChatInputCommand())
         return;
     const command = client.commands.get(interaction.commandName);
@@ -77,18 +79,18 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
         return;
     }
     try {
-        await command.execute(interaction);
+        command.execute(interaction);
     }
     catch (error) {
         console.error(error);
         if (interaction.replied || interaction.deferred) {
-            await interaction.followUp({
+            interaction.followUp({
                 content: 'There was an error while executing this command!',
                 ephemeral: true,
             });
         }
         else {
-            await interaction.reply({
+            interaction.reply({
                 content: 'There was an error while executing this command!',
                 ephemeral: true,
             });
@@ -97,7 +99,8 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
 });
 // When the client is ready, log a message to the console
 client.once(discord_js_1.Events.ClientReady, (client) => {
-    console.log(`Super Doraemon Bot is ready! Logged in as ${client.user?.tag}`);
+    console.log(`Super Doraemon Bot assembled! Logged in as ${client.user?.tag}`);
 });
 // Log in to Discord with your bot token
 client.login(process.env.DISCORD_TOKEN);
+//# sourceMappingURL=bot.js.map

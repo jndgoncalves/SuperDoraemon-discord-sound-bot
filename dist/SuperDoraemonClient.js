@@ -16,3 +16,4 @@ class SuperDoraemonClient extends discord_js_1.Client {
     }
 }
 exports.default = SuperDoraemonClient;
+//# sourceMappingURL=SuperDoraemonClient.js.map

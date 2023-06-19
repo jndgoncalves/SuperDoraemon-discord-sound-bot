@@ -30,7 +30,9 @@ for (const folder of commandsFolders) {
     .filter((file) => file.endsWith('.ts'));
 
   // Loop over each file in the current folder
-  async () => {
+  // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
+  // By using the async IIFE, the code block becomes an async function, allowing the use of the await keyword inside it
+  (async () => {
     for (const file of commandFiles) {
       // Define the path to the current file
       const filePath = path.join(commandsPath, file);
@@ -48,11 +50,13 @@ for (const folder of commandsFolders) {
         );
       }
     }
-  };
+  })();
+
+  // ...
 }
 
 // When an interaction is created, try to execute the corresponding command
-client.on(Events.InteractionCreate, async (interaction) => {
+client.on(Events.InteractionCreate, (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   const command = client.commands.get(interaction.commandName);
@@ -63,16 +67,16 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 
   try {
-    await command.execute(interaction);
+    command.execute(interaction);
   } catch (error) {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
-      await interaction.followUp({
+      interaction.followUp({
         content: 'There was an error while executing this command!',
         ephemeral: true,
       });
     } else {
-      await interaction.reply({
+      interaction.reply({
         content: 'There was an error while executing this command!',
         ephemeral: true,
       });

@@ -9,3 +9,4 @@ module.exports = {
         await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
     },
 };
+//# sourceMappingURL=user.js.map

@@ -28,12 +28,29 @@
       "type": "node",
       "request": "attach",
       "name": "Debug Deploy Commands",
+      "program": "${workspaceFolder}/src/src/deploy-commands.ts",
+      "cwd": "${workspaceFolder}",
+      "sourceMaps": true
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Debug Deploy Commands2",
       "runtimeExecutable": "npx",
       "runtimeArgs": ["ts-node"],
       "args": ["${workspaceFolder}/src/deploy-commands.ts"],
       "protocol": "inspector",
       "console": "integratedTerminal",
       "sourceMaps": true
+    },
+    {
+      "name": "Debug Bot",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/bot.ts",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "envFile": "${workspaceFolder}/docker.env"
     }
   ]
 }
