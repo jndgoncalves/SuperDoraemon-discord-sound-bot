@@ -19,7 +19,26 @@
       "restart": true,
       "address": "localhost",
       "localRoot": "${workspaceFolder}",
-      "remoteRoot": "/usr/src"
+      "remoteRoot": "/usr/src",
+      "protocol": "inspector",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Debug Deploy Commands",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["ts-node"],
+      "args": ["${workspaceFolder}/src/deploy-commands.ts"],
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "sourceMaps": true
     }
   ]
 }
+
+//"port": 9229,
+//"address": "localhost",
+//"localRoot": "${workspaceFolder}",
+//"remoteRoot": "/usr/src"/

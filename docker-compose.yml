@@ -13,4 +13,4 @@ services:
     env_file:
       - docker.env
     container_name: discord-bot-container
-    command: ['npm', 'run', 'debug']
+    #command: ['npm', 'run', 'start']

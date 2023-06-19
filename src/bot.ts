@@ -82,7 +82,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 // When the client is ready, log a message to the console
 client.once(Events.ClientReady, (client) => {
-  console.log(`Super Doraemon Bot is ready! Logged in as ${client.user?.tag}`);
+  console.log(`Super Doraemon Bot assembled! Logged in as ${client.user?.tag}`);
 });
 
 // Log in to Discord with your bot token
