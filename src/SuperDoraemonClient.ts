@@ -1,7 +1,7 @@
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 
 export default class SuperDoraemonClient extends Client {
-  public commands: Collection<string, any>;
+  public commands: Collection<string, never>;
 
   constructor() {
     super({

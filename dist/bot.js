@@ -51,6 +51,7 @@ for (const folder of commandsFolders) {
         .filter((file) => file.endsWith('.ts'));
     // Loop over each file in the current folder
     // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
+    // By using the async IIFE, the code block becomes an async function, allowing the use of the await keyword inside it
     (async () => {
         for (const file of commandFiles) {
             // Define the path to the current file
@@ -70,7 +71,7 @@ for (const folder of commandsFolders) {
     // ...
 }
 // When an interaction is created, try to execute the corresponding command
-client.on(discord_js_1.Events.InteractionCreate, (interaction) => {
+client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand())
         return;
     const command = client.commands.get(interaction.commandName);
@@ -79,18 +80,26 @@ client.on(discord_js_1.Events.InteractionCreate, (interaction) => {
         return;
     }
     try {
-        command.execute(interaction);
+        //command.execute(interaction);
+        await command.execute(interaction);
+        // Create a heap snapshot after the command is executed
+        heapdump.writeSnapshot((err, filename) => {
+            if (err)
+                console.error(err);
+            else
+                console.log('Heap dump written to', filename);
+        });
     }
     catch (error) {
         console.error(error);
         if (interaction.replied || interaction.deferred) {
-            interaction.followUp({
+            await interaction.followUp({
                 content: 'There was an error while executing this command!',
                 ephemeral: true,
             });
         }
         else {
-            interaction.reply({
+            await interaction.reply({
                 content: 'There was an error while executing this command!',
                 ephemeral: true,
             });

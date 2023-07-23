@@ -67,8 +67,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 
   try {
-    await command.execute(interaction);
     //command.execute(interaction);
+    await command.execute(interaction);
+
+    // Create a heap snapshot after the command is executed
+    heapdump.writeSnapshot((err, filename) => {
+      if (err) console.error(err);
+      else console.log('Heap dump written to', filename);
+    });
   } catch (error) {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
