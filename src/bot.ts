@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Collection, Events } from 'discord.js';
+import { Collection, CommandInteraction, Events } from 'discord.js';
 import SuperDoraemonClient from './SuperDoraemonClient';
 import path from 'node:path';
 import fs from 'node:fs';
@@ -40,7 +40,9 @@ for (const folder of commandsFolders) {
       // Import the command from the current file
       const command = await import(filePath);
 
-      // If the command has both a "data" and "execute" property, add it to the commands Collection
+      client.commands.set(command.data.name, command);
+
+      //If the command has both a "data" and "execute" property, add it to the commands Collection
       if ('data' in command && 'execute' in command) {
         client.commands.set(command.data.name, command);
       } else {
@@ -51,13 +53,12 @@ for (const folder of commandsFolders) {
       }
     }
   })();
-
-  // ...
 }
 
 // When an interaction is created, try to execute the corresponding command
 client.on(Events.InteractionCreate, async (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
+  //if (!interaction.isChatInputCommand()) return;
+  if (!(interaction instanceof CommandInteraction)) return;
 
   const command = client.commands.get(interaction.commandName);
 
@@ -69,12 +70,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
   try {
     //command.execute(interaction);
     await command.execute(interaction);
-
-    // Create a heap snapshot after the command is executed
-    heapdump.writeSnapshot((err, filename) => {
-      if (err) console.error(err);
-      else console.log('Heap dump written to', filename);
-    });
   } catch (error) {
     console.error(error);
     if (interaction.replied || interaction.deferred) {

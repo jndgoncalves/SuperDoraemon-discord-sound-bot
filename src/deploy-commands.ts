@@ -2,11 +2,12 @@ import dotenv from 'dotenv';
 import { REST, Routes } from 'discord.js';
 import fs from 'node:fs';
 import path from 'node:path';
+import { Command } from './interfaces';
 
 // Load environment variables from .env file
 dotenv.config();
 
-const commands: { [key: string]: any }[] = [];
+const commands: { [key: string]: Command }[] = [];
 // Grab all the commands files from the commands directory created earlier
 const foldersPath = path.join(__dirname, 'commands');
 const commandsFolders = fs.readdirSync(foldersPath);
@@ -37,7 +38,9 @@ for (const folder of commandsFolders) {
 
 Promise.all(commandPromises).then(() => {
   if (!process.env.DISCORD_TOKEN) {
-    throw new Error('DISCORD_TOKEN is not defined in the environment variables');
+    throw new Error(
+      'DISCORD_TOKEN is not defined in the environment variables'
+    );
   }
 
   // Construct and prepare an instance of the REST module
@@ -77,11 +80,9 @@ Promise.all(commandPromises).then(() => {
       console.error(error);
     }
 
-
     // Start dummy server to keep the process running for debugging
     console.log('Starting dummy server...');
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     require('http').createServer().listen(3000);
-  
   })();
 });
