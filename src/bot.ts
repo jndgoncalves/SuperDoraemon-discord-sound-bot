@@ -56,7 +56,7 @@ for (const folder of commandsFolders) {
 }
 
 // When an interaction is created, try to execute the corresponding command
-client.on(Events.InteractionCreate, (interaction) => {
+client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   const command = client.commands.get(interaction.commandName);
@@ -67,16 +67,17 @@ client.on(Events.InteractionCreate, (interaction) => {
   }
 
   try {
-    command.execute(interaction);
+    await command.execute(interaction);
+    //command.execute(interaction);
   } catch (error) {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
-      interaction.followUp({
+      await interaction.followUp({
         content: 'There was an error while executing this command!',
         ephemeral: true,
       });
     } else {
-      interaction.reply({
+      await interaction.reply({
         content: 'There was an error while executing this command!',
         ephemeral: true,
       });
