@@ -4,10 +4,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Command } from './interfaces';
 
+//--REGISTER COMMANDS--
+//Run the command deployment script: Run the deploy-commands.ts script using the ts-node command:
+
+//npx ts-node deploy-commands.ts
+
 // Load environment variables from .env file
 dotenv.config();
 
-const commands: { [key: string]: Command }[] = [];
+const commands: Command[] = [];
 // Grab all the commands files from the commands directory created earlier
 const foldersPath = path.join(__dirname, 'commands');
 const commandsFolders = fs.readdirSync(foldersPath);

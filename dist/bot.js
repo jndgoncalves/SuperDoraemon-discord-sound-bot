@@ -31,6 +31,7 @@ const discord_js_1 = require("discord.js");
 const SuperDoraemonClient_1 = __importDefault(require("./SuperDoraemonClient"));
 const node_path_1 = __importDefault(require("node:path"));
 const node_fs_1 = __importDefault(require("node:fs"));
+// import heapdump from 'heapdump';
 // Load environment variables from .env file
 dotenv_1.default.config();
 // Create a new instance of SuperDoraemonClient
@@ -58,7 +59,7 @@ for (const folder of commandsFolders) {
             const filePath = node_path_1.default.join(commandsPath, file);
             // Import the command from the current file
             const command = await Promise.resolve(`${filePath}`).then(s => __importStar(require(s)));
-            // If the command has both a "data" and "execute" property, add it to the commands Collection
+            //If the command has both a "data" and "execute" property, add it to the commands Collection
             if ('data' in command && 'execute' in command) {
                 client.commands.set(command.data.name, command);
             }
@@ -68,11 +69,11 @@ for (const folder of commandsFolders) {
             }
         }
     })();
-    // ...
 }
 // When an interaction is created, try to execute the corresponding command
 client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
-    if (!interaction.isChatInputCommand())
+    //if (!interaction.isChatInputCommand()) return;
+    if (!(interaction instanceof discord_js_1.CommandInteraction))
         return;
     const command = client.commands.get(interaction.commandName);
     if (!command) {
@@ -82,13 +83,6 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
     try {
         //command.execute(interaction);
         await command.execute(interaction);
-        // Create a heap snapshot after the command is executed
-        heapdump.writeSnapshot((err, filename) => {
-            if (err)
-                console.error(err);
-            else
-                console.log('Heap dump written to', filename);
-        });
     }
     catch (error) {
         console.error(error);

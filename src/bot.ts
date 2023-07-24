@@ -3,6 +3,7 @@ import { Collection, CommandInteraction, Events } from 'discord.js';
 import SuperDoraemonClient from './SuperDoraemonClient';
 import path from 'node:path';
 import fs from 'node:fs';
+// import heapdump from 'heapdump';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -39,8 +40,6 @@ for (const folder of commandsFolders) {
 
       // Import the command from the current file
       const command = await import(filePath);
-
-      client.commands.set(command.data.name, command);
 
       //If the command has both a "data" and "execute" property, add it to the commands Collection
       if ('data' in command && 'execute' in command) {

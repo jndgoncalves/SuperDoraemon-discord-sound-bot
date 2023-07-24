@@ -30,6 +30,9 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const discord_js_1 = require("discord.js");
 const node_fs_1 = __importDefault(require("node:fs"));
 const node_path_1 = __importDefault(require("node:path"));
+//--REGISTER COMMANDS--
+//Run the command deployment script: Run the deploy-commands.ts script using the ts-node command:
+//npx ts-node deploy-commands.ts
 // Load environment variables from .env file
 dotenv_1.default.config();
 const commands = [];
