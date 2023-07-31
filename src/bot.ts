@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Collection, CommandInteraction, Events } from 'discord.js';
+import { Collection } from 'discord.js';
 import SuperDoraemonClient from './SuperDoraemonClient';
 import path from 'node:path';
 import fs from 'node:fs';
@@ -54,41 +54,22 @@ for (const folder of commandsFolders) {
   })();
 }
 
-// When an interaction is created, try to execute the corresponding command
-client.on(Events.InteractionCreate, async (interaction) => {
-  //if (!interaction.isChatInputCommand()) return;
-  if (!(interaction instanceof CommandInteraction)) return;
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs
+  .readdirSync(eventsPath)
+  .filter((file) => file.endsWith('.ts'));
 
-  const command = client.commands.get(interaction.commandName);
-
-  if (!command) {
-    console.error(`No command matching ${interaction.commandName} was found.`);
-    return;
-  }
-
-  try {
-    //command.execute(interaction);
-    await command.execute(interaction);
-  } catch (error) {
-    console.error(error);
-    if (interaction.replied || interaction.deferred) {
-      await interaction.followUp({
-        content: 'There was an error while executing this command!',
-        ephemeral: true,
-      });
+(async () => {
+  for (const file of eventFiles) {
+    const filePath = path.join(eventsPath, file);
+    const event = await import(filePath);
+    if (event.once) {
+      client.once(event.name, (...args) => event.execute(...args));
     } else {
-      await interaction.reply({
-        content: 'There was an error while executing this command!',
-        ephemeral: true,
-      });
+      client.on(event.name, (...args) => event.execute(...args));
     }
   }
-});
-
-// When the client is ready, log a message to the console
-client.once(Events.ClientReady, (client) => {
-  console.log(`Super Doraemon Bot assembled! Logged in as ${client.user?.tag}`);
-});
+})();
 
 // Log in to Discord with your bot token
 client.login(process.env.DISCORD_TOKEN);

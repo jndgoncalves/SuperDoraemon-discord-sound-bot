@@ -11,12 +11,14 @@ const command: Command = {
     .setName('play')
     .setDescription('Plays a sound'),
   async execute(interaction: CommandInteraction) {
+    // Ensure the command is used in a guild and by a guild member
     if (!(interaction.member instanceof GuildMember)) {
       return await interaction.reply(
         'This command can only be used in Zmikas guild.'
       );
     }
 
+    // Get the voice channel of the member who used the command
     const voiceChannel = interaction.member.voice.channel;
 
     if (!voiceChannel) {
@@ -24,20 +26,21 @@ const command: Command = {
     }
     await interaction.reply(`Playing sound...`);
 
+    // Ensure the command is used in a guild
     if (!interaction.guild) {
       return await interaction.reply(
         'This command can only be used at Zmikas.'
       );
     }
 
+    // Join the voice channel
     const connection = joinVoiceChannel({
       channelId: voiceChannel.id,
       guildId: voiceChannel.guild.id,
       adapterCreator: interaction.guild?.voiceAdapterCreator,
     });
 
-    // You can now use the connection object to interact with the voice channel
-    // For example, to leave the voice channel after 5 seconds, you can do:
+    // Disconnect from the voice channel after 5 seconds
     setTimeout(() => {
       connection.disconnect();
     }, 5000);
