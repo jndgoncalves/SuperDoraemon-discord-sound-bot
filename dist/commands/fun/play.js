@@ -1,22 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+const voice_1 = require("@discordjs/voice");
 const command = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('play')
         .setDescription('Plays a sound'),
     async execute(interaction) {
-        // console.log('🚀 ~ file: play.ts:13 ~ execute ~ interaction:', interaction);
         if (!(interaction.member instanceof discord_js_1.GuildMember)) {
             return await interaction.reply('This command can only be used in Zmikas guild.');
         }
         const voiceChannel = interaction.member.voice.channel;
-        console.log('🚀 ~ file: play.ts:20 ~ execute ~ voiceChannel:', voiceChannel);
         if (!voiceChannel) {
-            console.log('🚀 ~ file: play.ts:25 ~ execute ~ voiceChannel:', voiceChannel);
             return await interaction.reply('Please join a voice channel first.');
         }
         await interaction.reply(`Playing sound...`);
+        if (!interaction.guild) {
+            return await interaction.reply('This command can only be used at Zmikas.');
+        }
+        const connection = (0, voice_1.joinVoiceChannel)({
+            channelId: voiceChannel.id,
+            guildId: voiceChannel.guild.id,
+            adapterCreator: interaction.guild?.voiceAdapterCreator,
+        });
+        // You can now use the connection object to interact with the voice channel
+        // For example, to leave the voice channel after 5 seconds, you can do:
+        setTimeout(() => {
+            connection.disconnect();
+        }, 5000);
     },
 };
 module.exports = command;
