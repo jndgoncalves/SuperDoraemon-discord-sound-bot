@@ -1,5 +1,11 @@
 import { VoiceState } from 'discord.js';
-import { joinVoiceChannel } from '@discordjs/voice';
+import {
+  AudioPlayerStatus,
+  createAudioPlayer,
+  createAudioResource,
+  joinVoiceChannel,
+} from '@discordjs/voice';
+import fs from 'fs';
 
 module.exports = {
   name: 'voiceStateUpdate',
@@ -15,10 +21,22 @@ module.exports = {
         adapterCreator: newState.guild.voiceAdapterCreator,
       });
 
-      // Disconnect after 5 seconds
-      setTimeout(() => {
+      const player = createAudioPlayer();
+      const resource = createAudioResource(
+        fs.createReadStream('./public/sounds/zmikas.mp3')
+      );
+
+      connection.subscribe(player);
+      player.play(resource);
+
+      player.on(AudioPlayerStatus.Idle, () => {
         connection.disconnect();
-      }, 5000);
+      });
+
+      // Disconnect after 5 seconds
+      // setTimeout(() => {
+      //   connection.disconnect();
+      // }, 5000);
     }
   },
 };

@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const voice_1 = require("@discordjs/voice");
+const fs_1 = __importDefault(require("fs"));
 module.exports = {
     name: 'voiceStateUpdate',
     async execute(oldState, newState) {
@@ -14,10 +18,17 @@ module.exports = {
                 guildId: newState.guild.id,
                 adapterCreator: newState.guild.voiceAdapterCreator,
             });
-            // Disconnect after 5 seconds
-            setTimeout(() => {
+            const player = (0, voice_1.createAudioPlayer)();
+            const resource = (0, voice_1.createAudioResource)(fs_1.default.createReadStream('./public/sounds/zmikas.mp3'));
+            connection.subscribe(player);
+            player.play(resource);
+            player.on(voice_1.AudioPlayerStatus.Idle, () => {
                 connection.disconnect();
-            }, 5000);
+            });
+            // Disconnect after 5 seconds
+            // setTimeout(() => {
+            //   connection.disconnect();
+            // }, 5000);
         }
     },
 };
