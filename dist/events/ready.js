@@ -4,11 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const SuperDoraemonClient_1 = __importDefault(require("../SuperDoraemonClient"));
+// Import the custom SuperDoraemonClient class
+const discordBotSoundClient_1 = __importDefault(require("../discordBotSoundClient"));
 module.exports = {
     name: discord_js_1.Events.ClientReady,
+    // Set the 'once' property to true, indicating that this event should only be triggered once
     once: true,
-    execute(client = new SuperDoraemonClient_1.default()) {
+    // Function to execute when the ClientReady event is triggered
+    execute(client = new discordBotSoundClient_1.default()) {
+        // Log a message to the console indicating the bot's username and tag when it's successfully logged in
         console.log(`Logged in as ${client.user?.tag}!`);
     },
 };

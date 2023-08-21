@@ -4,19 +4,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const SuperDoraemonClient_1 = __importDefault(require("../SuperDoraemonClient"));
+// Import the custom SuperDoraemonClient class
+const discordBotSoundClient_1 = __importDefault(require("../discordBotSoundClient"));
 module.exports = {
     name: discord_js_1.Events.InteractionCreate,
+    // Asynchronous function to execute when the InteractionCreate event is triggered
     async execute(interaction) {
-        // if (!interaction.isChatInput()) return;
+        // Check if the interaction is an instance of CommandInteraction
+        // If not, exit the function early
         if (!(interaction instanceof discord_js_1.CommandInteraction))
             return;
-        const client = new SuperDoraemonClient_1.default();
+        const client = new discordBotSoundClient_1.default();
+        // Retrieve the command from the client's command collection using the command name from the interaction
         const command = client.commands.get(interaction.commandName);
+        // If the command is not found, log an error message and exit the function
         if (!command) {
             console.error(`No command matching ${interaction.commandName} was found.`);
             return;
         }
+        // Try to execute the command
+        // If there's an error during execution, catch it and log an error message
         try {
             await command.execute(interaction);
         }

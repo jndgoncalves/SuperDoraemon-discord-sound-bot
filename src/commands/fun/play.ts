@@ -14,7 +14,7 @@ const command: Command = {
     // Ensure the command is used in a guild and by a guild member
     if (!(interaction.member instanceof GuildMember)) {
       return await interaction.reply(
-        'This command can only be used in Zmikas guild.'
+        'This command can only be used in the specified Guild.'
       );
     }
 
@@ -29,7 +29,7 @@ const command: Command = {
     // Ensure the command is used in a guild
     if (!interaction.guild) {
       return await interaction.reply(
-        'This command can only be used at Zmikas.'
+        'This command can only be used at specified Guild.'
       );
     }
 

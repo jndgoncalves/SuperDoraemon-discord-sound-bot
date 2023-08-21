@@ -1,17 +1,30 @@
+# Specify the Docker Compose file version
 version: '3.8'
+
+# Define the services that make up the application
 services:
+  # Service for the Discord bot
   discord-bot:
+    # Configuration for building the Docker image
     build:
-      context: .
+      # Specify the build context as the current directory
+      context:
+        .
+
+        # Path to the Dockerfile
       dockerfile: Dockerfile
+    # Mount the current directory to /usr/src in the container
     volumes:
       - .:/usr/src
+    # Map ports from the host to the container
     ports:
-      - '3000:3000'
-      - '9229:9229'
+      - '3000:3000' # Application port
+      - '9229:9229' # Debugging port
+    # Name of the Docker image
     image: discord-bot-image
     env_file:
       - docker.env
     container_name: discord-bot-container
+    # Command to run when the container starts
     command: ['npm', 'run', 'start']
     # command: ['npm', 'run', 'debug']

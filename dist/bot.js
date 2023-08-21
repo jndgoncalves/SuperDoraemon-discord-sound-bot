@@ -28,14 +28,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const discord_js_1 = require("discord.js");
-const SuperDoraemonClient_1 = __importDefault(require("./SuperDoraemonClient"));
+const discordBotSoundClient_1 = __importDefault(require("./discordBotSoundClient"));
 const node_path_1 = __importDefault(require("node:path"));
 const node_fs_1 = __importDefault(require("node:fs"));
-// import heapdump from 'heapdump';
 // Load environment variables from .env file
 dotenv_1.default.config();
 // Create a new instance of SuperDoraemonClient
-const client = new SuperDoraemonClient_1.default();
+const client = new discordBotSoundClient_1.default();
 // Initialize a new Collection to store commands
 client.commands = new discord_js_1.Collection();
 // Define the path to the commands folder
@@ -70,6 +69,7 @@ for (const folder of commandsFolders) {
         }
     })();
 }
+// Define the path to the events folder
 const eventsPath = node_path_1.default.join(__dirname, 'events');
 const eventFiles = node_fs_1.default
     .readdirSync(eventsPath)
@@ -77,11 +77,16 @@ const eventFiles = node_fs_1.default
 (async () => {
     for (const file of eventFiles) {
         const filePath = node_path_1.default.join(eventsPath, file);
+        // Dynamically import the event from the current file
         const event = await Promise.resolve(`${filePath}`).then(s => __importStar(require(s)));
+        // Check if the event has a property 'once' set to true
+        // If true, the event listener will be triggered only once
         if (event.once) {
             client.once(event.name, (...args) => event.execute(...args));
         }
         else {
+            // If the event does not have the 'once' property or it's set to false
+            // The event listener will be triggered every time the event occurs
             client.on(event.name, (...args) => event.execute(...args));
         }
     }

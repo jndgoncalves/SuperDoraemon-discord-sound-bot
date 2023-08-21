@@ -41,8 +41,11 @@ for (const folder of commandsFolders) {
   }
 }
 
+// Wait for all command promises to resolve
 Promise.all(commandPromises).then(() => {
+  // Check if the DISCORD_TOKEN environment variable is set
   if (!process.env.DISCORD_TOKEN) {
+    // If the DISCORD_TOKEN is not set, throw an error indicating the missing environment variable
     throw new Error(
       'DISCORD_TOKEN is not defined in the environment variables'
     );

@@ -3,7 +3,6 @@ import { Collection } from 'discord.js';
 import SuperDoraemonClient from './SuperDoraemonClient';
 import path from 'node:path';
 import fs from 'node:fs';
-// import heapdump from 'heapdump';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -54,6 +53,7 @@ for (const folder of commandsFolders) {
   })();
 }
 
+// Define the path to the events folder
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs
   .readdirSync(eventsPath)
@@ -62,10 +62,17 @@ const eventFiles = fs
 (async () => {
   for (const file of eventFiles) {
     const filePath = path.join(eventsPath, file);
+
+    // Dynamically import the event from the current file
     const event = await import(filePath);
+
+    // Check if the event has a property 'once' set to true
+    // If true, the event listener will be triggered only once
     if (event.once) {
       client.once(event.name, (...args) => event.execute(...args));
     } else {
+      // If the event does not have the 'once' property or it's set to false
+      // The event listener will be triggered every time the event occurs
       client.on(event.name, (...args) => event.execute(...args));
     }
   }

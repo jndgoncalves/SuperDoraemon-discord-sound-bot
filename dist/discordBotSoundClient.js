@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-// Define the SuperDoraemonClient class that extends the Client class from discord.js
-class SuperDoraemonClient extends discord_js_1.Client {
+// Define the discordBotSoundClient class that extends the Client class from discord.js
+class discordBotSoundClient extends discord_js_1.Client {
     // Constructor for the SuperDoraemonClient class
     constructor() {
         // Call the constructor of the parent Client class
@@ -22,5 +22,5 @@ class SuperDoraemonClient extends discord_js_1.Client {
         this.commands = new discord_js_1.Collection();
     }
 }
-exports.default = SuperDoraemonClient;
-//# sourceMappingURL=SuperDoraemonClient.js.map
+exports.default = discordBotSoundClient;
+//# sourceMappingURL=discordBotSoundClient.js.map

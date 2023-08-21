@@ -9,7 +9,7 @@ const command = {
     async execute(interaction) {
         // Ensure the command is used in a guild and by a guild member
         if (!(interaction.member instanceof discord_js_1.GuildMember)) {
-            return await interaction.reply('This command can only be used in Zmikas guild.');
+            return await interaction.reply('This command can only be used in the specified Guild.');
         }
         // Get the voice channel of the member who used the command
         const voiceChannel = interaction.member.voice.channel;
@@ -19,7 +19,7 @@ const command = {
         await interaction.reply(`Playing sound...`);
         // Ensure the command is used in a guild
         if (!interaction.guild) {
-            return await interaction.reply('This command can only be used at Zmikas.');
+            return await interaction.reply('This command can only be used at specified Guild.');
         }
         // Join the voice channel
         const connection = (0, voice_1.joinVoiceChannel)({
