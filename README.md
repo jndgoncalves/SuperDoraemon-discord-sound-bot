@@ -82,7 +82,6 @@ A Discord bot designed to join a voice channel that a user has joined and play a
 
 ### DevDependencies
 
-- **@types/heapdump**: Type definitions for heapdump.
 - **@typescript-eslint/eslint-plugin** and **@typescript-eslint/parser**: ESLint support for TypeScript.
 - **eslint**: Lint ECMAScript/JavaScript code.
 - **nodemon**: Monitor source changes and restart the server.
