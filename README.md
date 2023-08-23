@@ -2,6 +2,12 @@
 
 A Discord bot designed to join a voice channel that a user has joined and play a specific sound. This bot enhances server interactions by providing a fun and interactive audio experience for users.
 
+### Demonstration Video
+
+Click on the image below to watch a demonstration of the Discord bot on YouTube:
+
+[![Watch the video](https://img.youtube.com/vi/z3NlAQ4b2Fc/maxresdefault.jpg)](https://www.youtube.com/watch?v=z3NlAQ4b2Fc)
+
 ## Table of Contents
 
 - [Development & Configuration](#development--configuration)
