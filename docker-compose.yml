@@ -22,6 +22,7 @@ services:
       - '9229:9229' # Debugging port
     # Name of the Docker image
     image: discord-bot-image
+    restart: unless-stopped
     env_file:
       - docker.env
     container_name: discord-bot-container
