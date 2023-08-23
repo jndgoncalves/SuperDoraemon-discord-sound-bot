@@ -2,6 +2,13 @@
 
 A Discord bot designed to join a voice channel that a user has joined and play a specific sound. This bot enhances server interactions by providing a fun and interactive audio experience for users.
 
+## Join Our Discord Guild
+
+If you have questions, suggestions, or just want to chat with us, join our Discord guild:
+
+[![Discord](https://img.shields.io/discord/1134812035620798515?color=7289da&label=Discord&logo=discord&logoColor=white)](https://discord.gg/kyJwF2RcPt)
+
+
 ### Demonstration Video
 
 Click on the image below to watch a demonstration of the Discord bot on YouTube:
