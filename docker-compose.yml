@@ -21,11 +21,11 @@ services:
       - '3000:3000' # Application port
       - '9229:9229' # Debugging port
     # Name of the Docker image
-    image: discord-bot-image
+    image: super-doraemon-discord-bot-image
     restart: unless-stopped
     env_file:
       - docker.env
-    container_name: discord-bot-container
+    container_name: super-doraemon-discord-bot-container
     # Command to run when the container starts
     command: ['npm', 'run', 'start']
     # command: ['npm', 'run', 'debug']
