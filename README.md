@@ -44,13 +44,13 @@ Click on the image below to watch a demonstration of the Discord bot on YouTube:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/jndgoncalves/discord-bot.git
+   git clone https://github.com/jndgoncalves/SuperDoraemon-discord-sound-bot
    ```
 
 2. **Navigate to the Directory**
 
    ```bash
-   cd discord-bot
+   cd SuperDoraemon-discord-sound-bot
    ```
 
 3. **Install Dependencies**
