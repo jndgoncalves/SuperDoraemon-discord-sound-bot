@@ -11,7 +11,7 @@ module.exports = {
     // If not, exit the function early
     if (!(interaction instanceof CommandInteraction)) return;
 
-    const client = new SuperDoraemonClient();
+    const client = interaction.client as SuperDoraemonClient;
 
     // Retrieve the command from the client's command collection using the command name from the interaction
     const command = client.commands.get(interaction.commandName);
