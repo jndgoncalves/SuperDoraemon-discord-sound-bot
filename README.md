@@ -13,7 +13,9 @@ If you have questions, suggestions, or just want to chat with us, join our Disco
 
 Click on the image below to watch a demonstration of the Discord bot on YouTube:
 
-[![Watch the video](https://img.youtube.com/vi/z3NlAQ4b2Fc/maxresdefault.jpg)](https://www.youtube.com/watch?v=z3NlAQ4b2Fc)
+<a href="https://www.youtube.com/watch?v=z3NlAQ4b2Fc" target="_blank">
+    <img src="https://img.youtube.com/vi/z3NlAQ4b2Fc/maxresdefault.jpg" alt="Watch the video">
+</a>
 
 ## Table of Contents
 
