@@ -5,6 +5,7 @@ import {
 } from 'discord.js';
 import { joinVoiceChannel } from '@discordjs/voice';
 import { Command } from '../../interfaces';
+import { playAudio } from '../../utils/audioUtils';
 
 const command: Command = {
   data: new SlashCommandBuilder()
@@ -40,10 +41,7 @@ const command: Command = {
       adapterCreator: interaction.guild?.voiceAdapterCreator,
     });
 
-    // Disconnect from the voice channel after 5 seconds
-    setTimeout(() => {
-      connection.disconnect();
-    }, 5000);
+    playAudio(connection!, './public/sounds/welcome-traveler.mp3');
   },
 };
 
